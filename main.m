@@ -2,38 +2,42 @@ close all;
 clear;
 clc;
 addpath([cd '/data']);
-addpath([cd '/ExtractSposts']);
-addpath([cd '/GaussianFit']);
-addpath([cd '/Threshold']);
-addpath([cd '/Denoising']);
-addpath([cd '/MS_VST']);
+addpath([cd '/PALM']);
 addpath([cd '/detection']);
 addpath([cd '/common']);
+addpath([cd '/Threshold']);
 
+TIRF_num = 10;
+SIM_num = 3*TIRF_num;
 %% read imgae
-% file_name = 'cell-1-bleaching.tif';
-% file_name = 'c87_TIRF-65nm.tif';
-file_name = 'C1-H_cell2_647.tif';
+SIM_file_name = 'c87-sim-32.5nm.tif';
+TRIF_file_name = 'c87_TIRF-65nm.tif';
 
-%% read tiff image
-img = tiffread(file_name,1);
-img = double(img);
+img_TRIF = tiffread(TRIF_file_name,[1 TIRF_num]);
+img_TRIF = double(img_TRIF);
+% figure,colormap(gray);
+% imagesc(img_TRIF);
 
-V = findParticles(img,4);
-figure,colormap(gray);
-imagesc(img);
-hold on 
-plot(V(:,1),V(:,2),'r.');
+img_SIM = tiffread(SIM_file_name,[1 SIM_num]);
+img_SIM = double(img_SIM);
 
-fit_radiul = 4;
-pixel_size = 107; %nanometers
 tic
-[center,uncen] = PALM_Fitting(img,V,fit_radiul,pixel_size);
-t = toc
-figure,colormap(gray);
-imagesc(img);
-hold on 
-plot(center(:,1),center(:,2),'r.');
+%% obtained the ROI in the SIM's image
+ROI_SIM = GetROI_SIM(img_TRIF,img_SIM);
 
-nmb = 1;
+%% find particles in the ROI_SIM image
+V = FindParticles(ROI_SIM,3,3);
+toc
+
+% figure,colormap(gray);
+% imagesc(ROI_SIM);
+% hold on
+% plot(V(:,1),V(:,2),'r.');
+% 
+% mean_SIM = mean(img_SIM(:));
+% id = V(:,3) < 0.6*mean_SIM;
+% V(id,:) = [];
+% hold on
+% plot(V(:,1),V(:,2),'b*');
+% nmb = 1;
 

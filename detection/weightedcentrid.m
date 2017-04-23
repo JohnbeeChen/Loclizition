@@ -1,4 +1,5 @@
 function V=weightedcentrid(I,w)
+
 ImgMax=locmax2d(I,[w w]);
 [V(:,2) V(:,1) V(:,3)]=find(ImgMax);
 [row column]=size(I);
