@@ -27,6 +27,11 @@ ROI_SIM = GetROI_SIM(img_TRIF,img_SIM);
 
 %% find particles in the ROI_SIM image
 V = FindParticles(ROI_SIM,3,3);
+
+%% linking points
+DV = Point_Linking(V, 1.5);
+
+
 toc
 
 % figure,colormap(gray);
