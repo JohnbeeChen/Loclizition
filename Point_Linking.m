@@ -50,7 +50,8 @@ for ii = 1:img_num
     id = trackInfos{ii}(:,2) < stop_fram;
     trackInfos{ii}(id,:) = [];
 end
-varargout{1} = cell2struct(trackInfos,'trackInfo',2);
+% varargout{1} = cell2struct(trackInfos,'trackInfo',2);
+varargout{1} = trackInfos;
 end
 
 
