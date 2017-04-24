@@ -1,7 +1,8 @@
-function varargout = Point_Linking(point_cell,radius)
+function varargout = Point_Linking(point_cell,radius,duration)
 
 
 % gap = 0;
+least_frame = duration;
 uncertainty = radius^2;
 img_num = size(point_cell,2);
 
@@ -13,12 +14,13 @@ for ii = 1:img_num
     for jj = 1: point_num
         track_info(1) = ii; %start frame
         track_info(3:5) = point_set{ii}(jj,1:3);
+        xx = point_set{ii}(jj,1);
+        yy = point_set{ii}(jj,2);
         next_fram = ii + 1;
         while 1
-            if next_fram <= img_num               
+            if next_fram <= img_num
                 next_points = point_set{next_fram};
-                xx = track_info(3);
-                yy = track_info(4);
+                
                 points_xx = next_points(:,1);
                 points_yy = next_points(:,2);
                 distance = (points_xx - xx).^2 + (points_yy - yy).^2;
@@ -42,7 +44,11 @@ for ii = 1:img_num
         end
         trackInfos{ii}(jj,:) = track_info;
     end
-    
+    %% clean those points that's duration less than least_frame
+    star_fram = track_info(1);
+    stop_fram = least_frame + star_fram - 1;
+    id = trackInfos{ii}(:,2) < stop_fram;
+    trackInfos{ii}(id,:) = [];
 end
 varargout{1} = cell2struct(trackInfos,'trackInfo',2);
 end

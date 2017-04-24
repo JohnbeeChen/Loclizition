@@ -29,20 +29,17 @@ ROI_SIM = GetROI_SIM(img_TRIF,img_SIM);
 V = FindParticles(ROI_SIM,3,3);
 
 %% linking points
-DV = Point_Linking(V, 1.5);
-
+least_fram = 4;
+DV = Point_Linking(V, 1.5,least_fram);
 
 toc
 
-% figure,colormap(gray);
-% imagesc(ROI_SIM);
-% hold on
-% plot(V(:,1),V(:,2),'r.');
-% 
-% mean_SIM = mean(img_SIM(:));
-% id = V(:,3) < 0.6*mean_SIM;
-% V(id,:) = [];
-% hold on
-% plot(V(:,1),V(:,2),'b*');
-% nmb = 1;
-
+%% display
+for ii = 1:1
+figure(1),colormap(gray)
+imagesc(img_SIM(:,:,ii));
+hold on 
+plot(V{ii}(:,1),V{ii}(:,2),'r.');
+% plot(DV(ii).trackInfo(:,3),DV(ii).trackInfo(:,4),'b*');
+nmb = 1;
+end
