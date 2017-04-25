@@ -1,4 +1,17 @@
 function varargout = Point_Linking(point_cell,radius,duration)
+% ponits linking in the points' set of @point_cell
+% @point_cell: the result of FindParticles.
+% @radius: if the distance between the point in one fram and the point in
+%          the next fram is less than @radius, the two points will be 
+%          considered as the same point.      
+% @duration: if the frams that the point existed less than @duration, the
+%            point will no be considerd as a signal and it will not be
+%            involved in the output parameter @varargout
+%
+% @varargout:[start_fram,stop_fram,x_center,y_center,peak_intensity]
+%
+% Author : Johnbee
+% Date   : 2017/04/25
 
 
 % gap = 0;
@@ -8,7 +21,7 @@ img_num = size(point_cell,2);
 
 trackInfos = cell(img_num,1);
 point_set = point_cell;
-track_info = zeros(1,5);%[start_fram,stop_fram,x_center,y_center,peak_intensity]
+track_info = zeros(1,5);
 for ii = 1:img_num
     point_num = length(point_set{ii}(:,1));
     for jj = 1: point_num

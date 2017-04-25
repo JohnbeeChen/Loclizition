@@ -6,10 +6,7 @@ addpath([cd '/PALM']);
 addpath([cd '/detection']);
 addpath([cd '/common']);
 addpath([cd '/Threshold']);
+addpath([cd '/GUI_BSP']);
+addpath([cd '/Forms']);
 
- spmd 
- A = rand(3,2);
- end
- for i = 1: length(A)
-     figure;imagesc(A{i});
- end
+run MainForm.m;
