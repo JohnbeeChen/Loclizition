@@ -1,4 +1,12 @@
 function varargout = Point_Fitting(img_in,DV,radius)
+% uses the Gaussian Fitting to fit the region in @img_in
+% @img_in: the raw images' stack
+% @DV    : the result before Point_Linking that involve the infomation of 
+%          each point to fitting
+% @radius: the radius of each region that going to be fitted
+% @varargout: [start_fram,stop_fram,xc_fit,yc_fit,x_uncertiance,y_uncertiance,Num_photon,b_noise]
+% Author : Johnbee
+% Date   : 2017/04/25
 
 frams_num = size(DV,1);
 img = img_in;
@@ -7,10 +15,9 @@ radius = int32(radius);
 FittingInfos = cell(frams_num,1);
 gray2photon_coefficent = 1/(0.8*0.46);
 size_img = size(img(:,:,1));
-% fit_strat_point(:,1) = in_centroid(:,1) - radius; %start point
-% fit_strat_point(:,2) = in_centroid(:,2) - radius;
 
-%[start_fram,stop_fram,xc_fit,yc_fit,x_uncertiance,y_uncertiance,Num_photon,b_noise]
+
+
 parfor ii = 1 : frams_num
     tem_points = DV{ii};
     points_num = size(tem_points,1);
