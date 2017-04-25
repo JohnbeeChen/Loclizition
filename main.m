@@ -2,13 +2,13 @@ close all;
 clear;
 clc;
 addpath([cd '/data']);
-addpath([cd '/PALM']);
+% addpath([cd '/PALM']);
 addpath([cd '/detection']);
 addpath([cd '/common']);
 addpath([cd '/Threshold']);
 addpath([cd '/GaussianFit']);
 tic
-TIRF_num = 50;
+TIRF_num = 3;
 SIM_num = 3*TIRF_num;
 %% read imgae
 SIM_file_name = 'c87-sim-32.5nm.tif';
@@ -44,6 +44,7 @@ for ii = 1:1
 figure(1),colormap(gray)
 imagesc(img_SIM(:,:,ii));
 hold on 
+% plot(Precise{ii}(:,3),FitResult{ii}(:,4),'r.');
 plot(FitResult{ii}(:,3),FitResult{ii}(:,4),'r.');
 % plot(DV(ii).trackInfo(:,3),DV(ii).trackInfo(:,4),'b*');
 nmb = 1;

@@ -1,3 +1,0 @@
-function varargout = tiffreader()
-
-end
