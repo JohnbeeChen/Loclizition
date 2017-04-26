@@ -9,7 +9,7 @@ function varargout = Point_Fitting(img_in,DV,radius)
 % Date   : 2017/04/25
 
 frams_num = size(DV,1);
-img = img_in;
+img = double(img_in);
 radius = int32(radius);
 % fit_lentgh = 2*radius + 1;
 FittingInfos = cell(frams_num,1);

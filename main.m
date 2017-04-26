@@ -6,6 +6,8 @@ addpath([cd '/detection']);
 addpath([cd '/common']);
 addpath([cd '/Threshold']);
 addpath([cd '/GaussianFit']);
+addpath([cd '/Forms']);
+
 tic
 TIRF_num = 10;
 SIM_num = 3*TIRF_num;
