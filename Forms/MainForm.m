@@ -22,7 +22,7 @@ function varargout = MainForm(varargin)
 
 % Edit the above text to modify the response to help MainForm
 
-% Last Modified by GUIDE v2.5 26-Apr-2017 15:32:42
+% Last Modified by GUIDE v2.5 27-Apr-2017 09:43:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -53,6 +53,7 @@ function Set_StateInfo(strings)
 temobj = findobj('Tag','text_State');
 set(temobj,'String',strings);
 
+function popup_add_item()
 % --- Executes just before MainForm is made visible.
 function MainForm_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
@@ -285,3 +286,41 @@ ReconstructionPoints = FittingResult_Reconstru(FitResult);
 handles.ReconstructionPoints = ReconstructionPoints;
 Set_StateInfo('Reconstrution Processed...');
 guidata(hObject,handles);
+
+
+% --- Executes on selection change in popupmenu3.
+function popupmenu3_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu3 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu3
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+a = 'how';b = 'are'; c = 'you';
+s = {a,b,c};
+now_s = get(hObject,'String');
+if isempty(now_s)
+    set(hObject,'String',s);
+end
+now_s = get(hObject,'String');
+if isempty(now_s)
+    set(hObject,'String',s);
+else
+    len = size(now_s,1);
+    now_s{len + 1} = 'nmb';
+    set(hObject,'String',now_s);
+end
+nmb = 1;
