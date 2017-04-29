@@ -8,6 +8,9 @@ addpath([cd '/common']);
 addpath([cd '/Threshold']);
 addpath([cd '/GaussianFit']);
 addpath([cd '/Forms']);
+addpath([cd '/pack_emd']);
+addpath([cd '/pack_emd/package_emd']);
+addpath([cd '/pack_emd/package_emd/EMDs/src']);
 
 TIRF_num = 3;
 SIM_num = 3*TIRF_num;
@@ -18,7 +21,7 @@ TRIF_file_name = 'c87_WF_2x.tif';
 SIM_file_name = 're-rolling-c87.tif';
 
 [img_TIRF, tirf_num] = tiffread(TRIF_file_name,[1, 1200]);
-img_TIRF = double(img_TIRF);
+img_TIRF = ImagIntensity_Align(img_TIRF);
 
 % info = imfinfo(SIM_file_name);
 % img_SIM = tiffread(SIM_file_name,[1 SIM_num]);
@@ -34,12 +37,12 @@ imshow(bw_TIRF);
 tic
 all_profile = TIRF_Z_Profile(img_TIRF,boxs);
 toc
-
+Detecte_Event(all_profile,1);
 % z_profie = gather(z_profie);
-for ii = 1:size(boxs,1)
-    figure
-    plot(all_profile(ii,:));
-end
+% for ii = 1:size(boxs,1)
+%     figure
+%     plot(all_profile(ii,:));
+% end
 % for ii = 1:10
 % figure(2), colormap(gray)
 % imagesc(regoin1(:,:,ii));
