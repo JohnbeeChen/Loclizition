@@ -46,8 +46,8 @@ function y = mean_filter(x,n)
 num = size(x,1);
 for ii = 1:num
     a = x(ii,:);
-    %     n=10; % n???????????
-    mean = ones(1,n)./n;  %mean?1×n?????????????1/n
+    %     n=10; %
+    mean = ones(1,n)./n;  %
     t = conv(a,mean);
     tem = t(1:length(t)-length(mean)+1);
     y(ii,:) = tem;
@@ -72,12 +72,3 @@ end
 
 end
 
-function varargout = My_SWT(x)
-num = size(x,1);
-y = zeros(size(x));
-for ii = 1:num
-    signal = x(ii,:);
-    [y(ii,:),] = swt(signal,2,'db2');
-end
-varargout{1} = y;
-end

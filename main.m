@@ -9,8 +9,9 @@ addpath([cd '/Threshold']);
 addpath([cd '/GaussianFit']);
 addpath([cd '/Forms']);
 addpath([cd '/pack_emd']);
-addpath([cd '/pack_emd/package_emd']);
-addpath([cd '/pack_emd/package_emd/EMDs/src']);
+addpath([cd '/package_emd']);
+addpath([cd '/package_emd/EMDs']);
+addpath([cd '/package_emd/EMDs/src']);
 
 TIRF_num = 3;
 SIM_num = 3*TIRF_num;
