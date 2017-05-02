@@ -1,4 +1,5 @@
 function varargout = My_SWT(mySignals,n)
+% a trous wavelet transform for 1D signals
 
 h = [1 4 6 4 1]/16;
 sz = size(mySignals);
@@ -22,7 +23,6 @@ end
 
 function varargout = VectorsExtend(myVectors,len)
 
-add_len = len;
 y = wextend('addcol','sym',myVectors,len);
 varargout{1} = y;
 
