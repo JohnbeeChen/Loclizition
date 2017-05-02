@@ -19,8 +19,8 @@ for ii = 1:num
     subplot(n,1,2)
     plot(swt_value(ii,:));
     hold on 
-    plot(start_loc,botom_value,'r');
-    plot(end_loc,botom_value,'b');
+    plot(start_loc,botom_value,'r.');
+    plot(end_loc,botom_value,'b.');
     hold off
     
     subplot(n,1,3)
