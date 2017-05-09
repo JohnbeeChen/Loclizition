@@ -4,9 +4,7 @@ gpu_tirf = gpuArray(tirf_in);
 boxs = bound_box;
 imgs_num = size(tirf_in,3);
 regoin_num = size(bound_box,1);
-% star_points = boxs{:}(1:2);
-% delete(gcp('nocreate'))
-% parpool(2)
+
 for ii = 1: regoin_num
     t = boxs(ii).BoundingBox;
     start_point = t(1:2) + 0.5;

@@ -1,5 +1,5 @@
 close all;
-clear;
+% clear;
 clc;
 addpath([cd '/data']);
 addpath([cd '/data/c87']);
@@ -30,23 +30,19 @@ SIM_file_name = 're-rolling-c87.tif';
 
 bw_TIRF = atrous_threshold(img_TIRF(:,:,1));
 boxs  = regionprops(bw_TIRF,'BoundingBox');
-subplot(2,1,1)
-imshow(img_TIRF(:,:,1),[]);
-subplot(2,1,2)
-imshow(bw_TIRF);
-
+% subplot(2,1,1)
+% imshow(img_TIRF(:,:,1),[]);
+% subplot(2,1,2)
+% imshow(bw_TIRF);
+% disp('your mother is flying in the sky');
 tic
 all_profile = TIRF_Z_Profile(img_TIRF,boxs);
+swt_value = My_SWT(all_profile,2);
+event_infos = Detect_Event(swt_value);
+% delet the null element in the cell
+event_infos(cellfun(@isempty,event_infos))=[];
 toc
-swt_value = Detecte_Event(all_profile,2);
-% z_profie = gather(z_profie);
-% for ii = 1:size(boxs,1)
-%     figure
-%     plot(all_profile(ii,:));
-% end
-% for ii = 1:10
-% figure(2), colormap(gray)
-% imagesc(regoin1(:,:,ii));
+disp('all right');
 nmb = 1;
 % end
 %% obtained the ROI in the SIM's image
@@ -65,7 +61,4 @@ pixe_size = 32.5; %nanometer
 % Precise =  Localization_Precise(FitResult,pixe_size);
 % recon = FittingResult_Reconstru(FitResult);
 
-
-
-%% display
 
