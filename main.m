@@ -43,7 +43,7 @@ disp('detect event is completed');
 
 [img_sim,sim_num] = tiffread(sim_file_name);
 img_sim = double(img_sim);
-
+result = SIM_Handle(img_sim,sim_event_info,boxs);
 toc
 
 nmb = 1;

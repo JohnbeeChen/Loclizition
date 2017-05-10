@@ -8,6 +8,10 @@ function varargout = Point_Fitting(img_in,DV,radius)
 % Author : Johnbee
 % Date   : 2017/04/25
 
+if isempty(DV)
+   varargout{1} = [];
+   return;
+end
 frams_num = size(DV,1);
 img = double(img_in);
 radius = int32(radius);
@@ -18,7 +22,7 @@ size_img = size(img(:,:,1));
 
 
 
-parfor ii = 1 : frams_num
+for ii = 1 : frams_num
     tem_points = DV{ii};
     points_num = size(tem_points,1);
     fitting_info = zeros(points_num,8);

@@ -11,18 +11,18 @@ if img_num == 0
     return;
 end
 
-parfor ii = 1 : img_num
-img = A(:,:,ii);   
-[W2 W3]=waveletTransform(img,1,threshold);
-bw = im2bw(W2);
-bw = bwareaopen(bw,4);
-W = bw .* img;
-temp = weightedcentrid(W,s);  
-mean_SIM = mean(temp(:,3));
-id = temp(:,3) < 1*mean_SIM;
-temp(id,:) = [];
-V{ii} = temp;
-% nmb = 1;
+for ii = 1 : img_num
+    img = A(:,:,ii);
+    [W2 W3]=waveletTransform(img,1,threshold);
+    bw = im2bw(W2);
+    bw = bwareaopen(bw,4);
+    W = bw .* img;
+    temp = weightedcentrid(W,s);
+    mean_SIM = mean(temp(:,3));
+    id = temp(:,3) < 1*mean_SIM;
+    temp(id,:) = [];
+    V{ii} = temp;
+    % nmb = 1;
 end
 varargout{1} = V;
 
