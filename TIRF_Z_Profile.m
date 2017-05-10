@@ -1,6 +1,6 @@
 function varargout = TIRF_Z_Profile(tirf_in,bound_box)
 
-gpu_tirf = gpuArray(tirf_in);
+gpu_tirf = tirf_in;
 boxs = bound_box;
 imgs_num = size(tirf_in,3);
 regoin_num = size(bound_box,1);
@@ -17,5 +17,5 @@ for ii = 1: regoin_num
         profile(ii,jj) = sum(tem(:));
     end
 end
-varargout{1} = gather(profile);
+varargout{1} = profile;
 end

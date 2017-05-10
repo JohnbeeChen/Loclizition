@@ -9,40 +9,43 @@ addpath([cd '/Threshold']);
 addpath([cd '/GaussianFit']);
 addpath([cd '/Forms']);
 % addpath([cd '/pack_emd']);
-addpath([cd '/package_emd']);
-addpath([cd '/package_emd/EMDs']);
-addpath([cd '/package_emd/EMDs/src']);
+% addpath([cd '/package_emd']);
+% addpath([cd '/package_emd/EMDs']);
+% addpath([cd '/package_emd/EMDs/src']);
 
-TIRF_num = 3;
-SIM_num = 3*TIRF_num;
+% TIRF_num = 3;
+% SIM_num = 3*TIRF_num;
 %% read imgae
 % SIM_file_name = 'c87-sim-32.5nm.tif';
 % TRIF_file_name = 'c87_TIRF-65nm.tif';
-TRIF_file_name = 'c87_WF_2x.tif';
-SIM_file_name = 're-rolling-c87.tif';
+tirf_file_name = 'c87_WF_2x.tif';
+sim_file_name = 're-rolling-c87.tif';
 
-[img_TIRF, tirf_num] = tiffread(TRIF_file_name,[1, 1200]);
+[img_tirf, tirf_num] = tiffread(tirf_file_name);
 % img_TIRF = ImagIntensity_Align(img_TIRF);
 
 % info = imfinfo(SIM_file_name);
-% img_SIM = tiffread(SIM_file_name,[1 SIM_num]);
-% img_SIM = double(img_SIM);
 
-bw_TIRF = atrous_threshold(img_TIRF(:,:,1));
-boxs  = regionprops(bw_TIRF,'BoundingBox');
-% subplot(2,1,1)
-% imshow(img_TIRF(:,:,1),[]);
-% subplot(2,1,2)
-% imshow(bw_TIRF);
-% disp('your mother is flying in the sky');
+
+bw_tirf = atrous_threshold(img_tirf(:,:,1));
+boxs  = regionprops(bw_tirf,'BoundingBox');
+
 tic
-all_profile = TIRF_Z_Profile(img_TIRF,boxs);
+all_profile = TIRF_Z_Profile(img_tirf,boxs);
 swt_value = My_SWT(all_profile,2);
 event_infos = Detect_Event(swt_value);
 % delet the null element in the cell
-event_infos(cellfun(@isempty,event_infos))=[];
+null_loc = cellfun('isempty',event_infos);
+event_infos(null_loc) = [];
+boxs(null_loc) = [];
+sim_event_info = TIRF_Event2SIM(event_infos);
+disp('detect event is completed');
+
+[img_sim,sim_num] = tiffread(sim_file_name);
+img_sim = double(img_sim);
+
 toc
-disp('all right');
+
 nmb = 1;
 % end
 %% obtained the ROI in the SIM's image
