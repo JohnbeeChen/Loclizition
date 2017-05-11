@@ -1,7 +1,7 @@
 function varargout = FindParticles(img_in,siz,thk)
 
 
-debug_display = 0;
+debug_display = 1;
 threshold = thk;
 A = img_in;
 img_num = size(A,3);
