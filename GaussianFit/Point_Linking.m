@@ -65,7 +65,22 @@ for ii = 1:img_num
     end
 end
 % varargout{1} = cell2struct(trackInfos,'trackInfo',2);
-varargout{1} = trackInfos;
+varargout{1} = MyCell2Mat(trackInfos);
 end
 
+function y = MyCell2Mat(x)
 
+null_loc = cellfun('isempty',x);
+x(null_loc) = [];
+num = length(x);
+if num == 0
+    y = [];
+   return; 
+end
+track_info = x{1};
+for ii = 2:num
+    m = x{ii};
+    track_info = [track_info;m];
+end
+y = track_info;
+end

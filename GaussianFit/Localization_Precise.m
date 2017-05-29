@@ -1,20 +1,28 @@
 function varargout = Localization_Precise(fit_result,pixe_size)
 
-frams_num = size(fit_result,1);
-Result_Infos = cell(frams_num,1);
-parfor ii = 1 : frams_num
-    tem_points = fit_result{ii};
-    point_num = size(tem_points,1);
-    uncer = zeros(point_num,2);
-    for jj = 1 : point_num
-        std = tem_points(jj,5:6);% standard deviation
-        ponton = tem_points(jj,7);
-        bg_noise = tem_points(jj,8);
-        uncer(jj,:) = calculate_uncertain(std,pixe_size,bg_noise,ponton);      
-    end
-    Result_Infos{ii} = uncer;
+points_num = size(fit_result,1);
+uncer = zeros(points_num,2);
+tem_points = fit_result;
+for jj = 1 : points_num
+    std = tem_points(jj,5:6);% standard deviation
+    ponton = tem_points(jj,7);
+    bg_noise = tem_points(jj,8);
+    uncer(jj,:) = calculate_uncertain(std,pixe_size,bg_noise,ponton);
 end
-varargout{1} = Result_Infos;
+% Result_Infos = cell(frams_num,1);
+% for ii = 1 : frams_num
+%     tem_points = fit_result{ii};
+%     point_num = size(tem_points,1);
+%     uncer = zeros(point_num,2);
+%     for jj = 1 : point_num
+%         std = tem_points(jj,5:6);% standard deviation
+%         ponton = tem_points(jj,7);
+%         bg_noise = tem_points(jj,8);
+%         uncer(jj,:) = calculate_uncertain(std,pixe_size,bg_noise,ponton);
+%     end
+%     Result_Infos{ii} = uncer;
+% end
+varargout{1} = uncer;
 end
 
 function y = calculate_uncertain(sd,a,b,N)

@@ -1,4 +1,5 @@
 function varargout = TIRF_Z_Profile(tirf_in,bound_box)
+% return the z_profiles of each box region at @bound_box
 
 gpu_tirf = tirf_in;
 boxs = bound_box;
