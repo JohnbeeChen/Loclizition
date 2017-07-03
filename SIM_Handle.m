@@ -1,5 +1,6 @@
 function varargout = SIM_Handle(imgSIM,eventSIM,boxsSIM)
 % handle the SIM's images
+% result[event_num,start_fram,stop_fram,xc,yc,precise_x,precise_y]
 
 pixe_size = 32.5; %nanometer
 psf_hw = 1.5; % the half-high-half-width per pixel
@@ -10,8 +11,8 @@ box_mat = struct2cell(boxsSIM)';
 box_mat = cell2mat(box_mat);
 
 regoin_fit_result  = cell(region_num,1);
-regoin_fit_precise = cell(region_num,1);
-region_num = 3;
+% regoin_fit_precise = cell(region_num,1);
+% region_num = 3;
 for ii = 1:region_num
     tem_event = eventSIM{ii};
     event_num = size(tem_event,1);
@@ -28,19 +29,20 @@ for ii = 1:region_num
         star_fram = tem_event(jj,1);
         % modifies the local fram_num to global fram_num
         tem_result = KeepStartFram(tem_result,star_fram);
+        precise =  Localization_Precise(tem_result,pixe_size);
+        tem_result(:,5:6) = precise;
+        tem_result(:,7:8) = [];         
         event_fit_result{jj} = tem_result;
-        precise{jj} =  Localization_Precise(tem_result,pixe_size);
-%         recon_result = FittingResult_Reconstru(event_fit_result{jj});
     end
     regoin_fit_result{ii} = MyCell2Mat(event_fit_result);
-    regoin_fit_precise{ii} = MyCell2Mat(precise);
+%     regoin_fit_precise{ii} = MyCell2Mat(precise);
     disp('one event fiting is completed');
 end
 disp('all done');
 varargout{1} = regoin_fit_result;
-if nargout ==2
-    varargout{2} = regoin_fit_precise;
-end
+% if nargout ==2
+%     varargout{2} = regoin_fit_precise;
+% end
 
 function y = KeepStartFram(inX,starFram)
 
@@ -64,7 +66,7 @@ infos = [ones(tem_len,1),infos];
 for ii = 2:num
     m = x{ii};
     len = size(m,1);
-    m = [ii*ones(len,1),m];
-    infos = [infos;m];
+    t = [ii*ones(len,1),m];
+    infos = [infos;t];
 end
 y = infos;

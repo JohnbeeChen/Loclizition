@@ -39,10 +39,10 @@ boxs(null_loc) = [];
 sim_event_info = TIRF_Event2SIM(event_infos);
 disp('detect event is completed');
 
-disp('fitting is ready');
+disp('fitting is ready'); 
 [img_sim,sim_num] = tiffread(sim_file_name);
 img_sim = double(img_sim);
-[result,precise] = SIM_Handle(img_sim,sim_event_info,boxs);
+result = SIM_Handle(img_sim,sim_event_info,boxs);
 
 toc
 
